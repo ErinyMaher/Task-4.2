@@ -33,3 +33,16 @@ A student wants to compare second-hand campus items, find an affordable listing 
 
 Your redesign should support the scenario above without removing or weakening the existing features.
 
+
+## Solution notes
+
+```bash
+npm test        # Unit tests for validation, ownership, filters and storage (Node's built-in runner)
+npm run build   # Production build
+```
+
+- `src/lib/listings.js` holds the marketplace rules, `src/lib/storage.js` the `localStorage` layer and `src/data/seedListings.js` the original example records.
+- `src/components/` holds the screens and shared UI. `src/App.jsx` owns the state and connects them.
+- Creating and editing listings use dedicated pages (`#/sell` and `#/edit/<id>`). `src/lib/useGuardedRouter.js` asks before leaving a form with unsaved changes, including on browser Back and Forward; reloading or closing the tab uses the browser's own prompt.
+- A change is applied to the screen only after it has been written to `localStorage`, so a failed save shows an error, never a success message.
+- Added beyond the brief, to support the scenario: a maximum budget filter, an available-only filter and listing deletion. New and edited listings need at least one photo; uploads are resized and kept in this browser only.
